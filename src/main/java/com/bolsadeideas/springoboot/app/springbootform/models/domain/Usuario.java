@@ -1,26 +1,34 @@
 package com.bolsadeideas.springoboot.app.springbootform.models.domain;
 
+import com.bolsadeideas.springoboot.app.springbootform.validation.IdentificadorRegex;
+import com.bolsadeideas.springoboot.app.springbootform.validation.Requerido;
+
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class Usuario {
 
+    //@Pattern(regexp = "[0-9]{2}[.][\\d]{3}[.][\\d]{3}[-][A-Z]{1}")
+    @IdentificadorRegex
     private String identificador;
 
-    @NotEmpty(message = "el nombre no puede ser vacío")
+    //@NotEmpty(message = "el nombre no puede ser vacío")
     private String nombre;
 
-    @NotEmpty
+    //@NotEmpty
+    @Requerido
     private String apellido;
 
-    @NotEmpty
+    @NotBlank
     @Size(min=3, max=8)
     private String username;
 
     @NotEmpty
     private String password;
 
+    @Requerido
     @NotEmpty
     @Email(message = "correo con formato incorrecto")
     private String email;
