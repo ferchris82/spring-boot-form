@@ -2,7 +2,7 @@ package com.bolsadeideas.springoboot.app.springbootform.models.domain;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
+//import org.springframework.format.annotation.DateTimeFormat;
 
 import com.bolsadeideas.springoboot.app.springbootform.validation.IdentificadorRegex;
 import com.bolsadeideas.springoboot.app.springbootform.validation.Requerido;
@@ -14,7 +14,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 public class Usuario {
@@ -49,7 +48,7 @@ public class Usuario {
 
     @NotNull
     @Future
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
     public String getUsername() {
