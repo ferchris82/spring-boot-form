@@ -8,12 +8,13 @@ import com.bolsadeideas.springoboot.app.springbootform.validation.IdentificadorR
 import com.bolsadeideas.springoboot.app.springbootform.validation.Requerido;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Future;
+//import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 public class Usuario {
@@ -47,9 +48,12 @@ public class Usuario {
     private Integer cuenta;
 
     @NotNull
-    @Future
+    @Past
     //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
+
+    @NotEmpty
+    private String pais;
 
     public String getUsername() {
         return username;
@@ -115,6 +119,12 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
 
 }

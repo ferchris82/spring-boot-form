@@ -1,7 +1,9 @@
 package com.bolsadeideas.springoboot.app.springbootform.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -11,10 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.bolsadeideas.springoboot.app.springbootform.controllers.editors.NombreMayusculaEditor;
 import com.bolsadeideas.springoboot.app.springbootform.models.domain.Usuario;
 import com.bolsadeideas.springoboot.app.springbootform.validation.UsuarioValidador;
 
@@ -32,7 +36,15 @@ public class FormController {
         binder.addValidators(validador);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+        binder.registerCustomEditor(Date.class, "fechaNacimiento", new CustomDateEditor(dateFormat, true));
+
+        binder.registerCustomEditor(String.class, "nombre", new NombreMayusculaEditor());
+        binder.registerCustomEditor(String.class, "apellido", new NombreMayusculaEditor());
+    }
+
+    @ModelAttribute("paises")
+    public List<String> paises(){
+        return Arrays.asList("España", "Colombia", "Chile", "Perú", "México", "Argentina");
     }
     
     @GetMapping("/form")
@@ -40,7 +52,7 @@ public class FormController {
         Usuario usuario = new Usuario();
         usuario.setNombre("Karina");
         usuario.setApellido("Arteaga");
-        usuario.setIdentificador("1.130.608.218-k");
+        usuario.setIdentificador("12.424.543-K");
         model.addAttribute("titulo", "Formulario usuarios");
         model.addAttribute("usuario", usuario);
         return "form";
