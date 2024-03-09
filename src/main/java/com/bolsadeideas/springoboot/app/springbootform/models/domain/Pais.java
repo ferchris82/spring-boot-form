@@ -43,4 +43,9 @@ public class Pais {
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return this.id.toString();
+    }
+
 }
