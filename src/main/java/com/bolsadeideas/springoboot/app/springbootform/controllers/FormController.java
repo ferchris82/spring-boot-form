@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -135,25 +136,27 @@ public class FormController {
     }
 
     @PostMapping("/form")
-    public String procesar(@Valid Usuario usuario, BindingResult result, Model model, SessionStatus status){
+    public String procesar(@Valid Usuario usuario, BindingResult result, Model model){
 
         //validador.validate(usuario, result);
 
-        model.addAttribute("titulo", "Resultado form");
-
         if(result.hasErrors()){
-
-            /*Map<String, String> errores = new HashMap<>();
-            result.getFieldErrors().forEach(err ->{
-                errores.put(err.getField(), "El campo ".concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
-            });
-            model.addAttribute("error", errores);*/
+            model.addAttribute("titulo", "Resultado form");
             return "form";
         }
 
-        model.addAttribute("usuario", usuario);
+        return "redirect:/ver";
+    }
+
+    @GetMapping("/ver")
+    public String ver(@SessionAttribute(name="usuario", required = false) Usuario usuario, Model model, SessionStatus status){
+
+        if(usuario==null){
+            return "redirect:/form";
+        }
+        
+        model.addAttribute("titulo", "Resultado form");
         status.setComplete();
         return "resultado";
     }
-    
 }
