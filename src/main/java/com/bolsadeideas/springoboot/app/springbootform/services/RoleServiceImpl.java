@@ -9,12 +9,13 @@ import com.bolsadeideas.springoboot.app.springbootform.models.domain.Role;
 
 @Service
 public class RoleServiceImpl implements RoleService{
+
     private List<Role> roles;
     public RoleServiceImpl(){
         this.roles = new ArrayList<>();
         this.roles.add(new Role(1, "Administrador", "ROLE_ADMIN"));
         this.roles.add(new Role(2, "Usuario", "ROLE_USER"));
-        this.roles.add(new Role(3, "Administrador", "ROLE_MODERATOR"));
+        this.roles.add(new Role(3, "Moderador", "ROLE_MODERATOR"));
     }
 
     @Override
@@ -31,7 +32,7 @@ public class RoleServiceImpl implements RoleService{
                 break;
             }
         }
-        return null;
+        return resultado;
     }
     
 }
